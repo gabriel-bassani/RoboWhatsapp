@@ -20,6 +20,10 @@ const puppeteer = require("puppeteer");
     const contactName = "Loira (Paulo)";
     await page.click(`span[title='${contactName}']`);
     await page.waitForSelector("._3uMse");
+
+    // Finds the message bar and focuses on it
+    const editor = await page.$("div[data-tab='1']");
+    await editor.focus();
   } catch (error) {
     console.log(error);
   }
