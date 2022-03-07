@@ -24,6 +24,19 @@ const puppeteer = require("puppeteer");
     // Finds the message bar and focuses on it
     const editor = await page.$("div[data-tab='1']");
     await editor.focus();
+
+    // Amount of messages you want to send
+    const amountOfMessages = 100;
+
+    // Loops through cycle of sending messages
+    for (let i = 0; i < amountOfMessages; i++) {
+      await page.evaluate(() => {
+        const message = "Are you mad at me? :( ";
+        document.execCommand("insertText", false, message);
+      });
+      await page.click("span[data-testid='send']");
+      await delay(500);
+    }
   } catch (error) {
     console.log(error);
   }
