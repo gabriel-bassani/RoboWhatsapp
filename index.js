@@ -13,7 +13,18 @@ const puppeteer = require("puppeteer");
 
     // Navigate to whatsapp
     await page.goto("https://web.whatsapp.com/");
-    await page.waitForSelector("._1MXsz");
+    let newInputValue = "Loira";
+    await page.waitForSelector("._13NKt");
+    await page.evaluate(
+      (val) =>
+        (document.getElementsByClassName(
+          "_13NKt copyable-text selectable-text"
+        )[0].outerText = val),
+      newInputValue
+    );
+    /*document.getElementsByClassName(
+      "_13NKt copyable-text selectable-text"
+    )[0].outerText = "Loira";*/
     await delay(5000);
 
     // Change to contact you want to send messages to
@@ -31,7 +42,7 @@ const puppeteer = require("puppeteer");
     // Loops through cycle of sending messages
     for (let i = 0; i < amountOfMessages; i++) {
       await page.evaluate(() => {
-        const message = "Are you mad at me? :( ";
+        const message = "Yo";
         document.execCommand("insertText", false, message);
       });
       await page.click("span[data-testid='send']");
@@ -42,7 +53,7 @@ const puppeteer = require("puppeteer");
   }
 })();
 
-function delay() {
+function delay(time) {
   return new Promise(function (resolve) {
     setTimeout(resolve, time);
   });
