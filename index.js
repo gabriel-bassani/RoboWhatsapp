@@ -5,35 +5,22 @@ const puppeteer = require("puppeteer");
     // Configures puppeteer
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
-    /*
     await page.setUserAgent(
-       Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36
-    )
-    */
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"
+    );
 
     // Navigate to whatsapp
     await page.goto("https://web.whatsapp.com/");
-    let newInputValue = "Loira";
     await page.waitForSelector("._13NKt");
-    await page.evaluate(
-      (val) =>
-        (document.getElementsByClassName(
-          "_13NKt copyable-text selectable-text"
-        )[0].outerText = val),
-      newInputValue
-    );
-    /*document.getElementsByClassName(
-      "_13NKt copyable-text selectable-text"
-    )[0].outerText = "Loira";*/
     await delay(5000);
 
     // Change to contact you want to send messages to
-    const contactName = "Loira (Paulo)";
+    const contactName = "Pedrinho";
     await page.click(`span[title='${contactName}']`);
-    await page.waitForSelector("._3uMse");
+    await page.waitForSelector("._2vbn4");
 
     // Finds the message bar and focuses on it
-    const editor = await page.$("div[data-tab='1']");
+    const editor = await page.$("div[tabindex='-1']");
     await editor.focus();
 
     // Amount of messages you want to send
